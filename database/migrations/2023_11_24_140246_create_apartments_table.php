@@ -15,6 +15,16 @@ return new class extends Migration
     {
         Schema::create('apartments', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->string('name');
+            $table->unsignedTinyInteger('rooms');
+            $table->unsignedTinyInteger('bathrooms');
+            $table->unsignedSmallInteger('rooms');
+            $table->string('address');
+            $table->decimal('lat',11,8);
+            $table->decimal('lon',11,8);
+            $table->string('photo',255);
+            $table->boolean('visible');
             $table->timestamps();
         });
     }
