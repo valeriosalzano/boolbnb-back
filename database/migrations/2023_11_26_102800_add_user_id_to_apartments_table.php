@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('services', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
+        Schema::table('apartments', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id')->after('id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
         });
     }
 
@@ -26,6 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('services');
+        Schema::table('apartments', function (Blueprint $table) {
+            $table->dropForeign('apartments_user_id_foreign');
+            $table->dropColumn('user_id');
+        });
     }
 };
