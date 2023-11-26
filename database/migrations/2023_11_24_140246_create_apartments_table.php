@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedTinyInteger('rooms');
+            $table->unsignedTinyInteger('beds');
             $table->unsignedTinyInteger('bathrooms');
-            $table->unsignedSmallInteger('rooms');
+            $table->unsignedSmallInteger('square_meters');
             $table->string('address');
             $table->decimal('lat',11,8);
             $table->decimal('lon',11,8);

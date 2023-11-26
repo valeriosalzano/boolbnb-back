@@ -9,9 +9,12 @@ class Visit extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'apartment_id',
-        'ip'
+        'ip',
+        'date'
     ];
 
     public function apartment()
