@@ -31,12 +31,15 @@ class Apartment extends Model
     public function services()
     {
         return $this->belongsToMany(Service::class);
-
     }
 
     public function messages()
     {
         return $this->hasMany(Message::class);
+    }
 
+    public function visits()
+    {
+        return $this->hasMany(Visit::class);
     }
 }
