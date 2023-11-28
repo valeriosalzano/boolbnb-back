@@ -37,6 +37,9 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'birth_date' => ['required', 'date' , "before:".Carbon::now()->subYears(18) ]
+        ],
+        $messages=[
+            'birth_date' => ['before' => 'Devi avere almeno 18 anni per registrarti.']
         ]);
 
         $user = User::create([

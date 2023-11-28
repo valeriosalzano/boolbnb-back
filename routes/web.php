@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ApartmentController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,9 +20,32 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware(['auth', 'verified'])
+    ->name('admin.')
+    ->prefix('admin')
+    ->group(function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+        Route::resource('/apartments', ApartmentController::class)->parameters([
+            'apartment' => 'apartment:id'
+        ]);
+
+        // Route::resource('/orders', OrderController::class)->parameters([
+        //     'orders' => 'order:order_code'
+        // ]);
+
+        // Route::resource('/stats', StatsController::class)->parameters([
+        //     'stats' => 'order:id'
+        // ]);
+
+        // Route::delete('products/{product}/deleteImg', [ProductController::class, 'deleteImg'])->name('products.deleteImg');
+
+    });
+// /ADMIN
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
