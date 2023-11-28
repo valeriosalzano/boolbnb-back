@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('apartment_sponsorship', function (Blueprint $table) {
             $table->unsignedBigInteger('apartment_id');
             $table->foreign('apartment_id')->references('id')->on('apartments')->onDelete('CASCADE');
-            $table->unsignedBigInteger('service_id');
+            $table->unsignedBigInteger('sponsorship_id');
             $table->foreign('sponsorship_id')->references('id')->on('sponsorships')->onDelete('CASCADE');
             $table->timestamp('expire_date');
         });
