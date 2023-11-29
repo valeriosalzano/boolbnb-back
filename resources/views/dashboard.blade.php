@@ -8,10 +8,15 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <div class="card">
+                    <div class="card shadow">
                         <div class="card-header">{{ __('Numero di appartamenti') }}</div>
                         <div class="card-body">
-                            {{ $apartments }}
+                            @if ($apartments)
+                                {{ $apartments }}
+                            @else
+                                <a class="btn btn-outline-dark" href="{{ route('admin.apartments.create') }}">Registra il primo
+                                    appartamento</a>
+                            @endif
                         </div>
                     </div>
                 </div>
