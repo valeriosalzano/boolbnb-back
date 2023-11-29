@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Apartment;
 use App\Http\Requests\StoreApartmentRequest;
 use App\Http\Requests\UpdateApartmentRequest;
+use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
 
 class ApartmentController extends Controller
@@ -27,8 +28,14 @@ class ApartmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('admin.apartments.create');
+    {   
+        $services = Service::all();
+        if (Auth::user()->apartment) {
+            return redirect()->route('admin.dashboard')->with('message', "Hai già un appartamento");
+        } else {
+            return view('admin.apartments.create', compact('services'));
+        }
+        
     }
 
     /**
