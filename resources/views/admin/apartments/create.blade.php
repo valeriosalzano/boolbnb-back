@@ -59,6 +59,11 @@
                         <input type="checkbox" class="form-check-input" id="visible" name="visible">
                     </div>
                     <div class="mb-3">
+                        <label for="image" class="form-label">Immagine *</label>
+                        <input type="file" class="form-control @error('image') is-invalid @enderror" id="image"
+                            name="image" placeholder="">
+                    </div>
+                    <div class="mb-3">
                         <p>Seleziona i servizi</p>
                         @foreach ($services as $service)
                             <div class="form-check">
