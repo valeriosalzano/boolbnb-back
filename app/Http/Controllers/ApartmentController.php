@@ -7,6 +7,7 @@ use App\Http\Requests\StoreApartmentRequest;
 use App\Http\Requests\UpdateApartmentRequest;
 use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ApartmentController extends Controller
 {
@@ -41,7 +42,29 @@ class ApartmentController extends Controller
      */
     public function store(StoreApartmentRequest $request)
     {
-        //
+        $validated_data = $request->validated();
+
+        if ($request->hasFile('photo')) {
+            $path = Storage::put('photo', $request->photo);
+            $validated_data['photo'] = $path;
+        }
+
+        if ($request->has('visible')) {
+            $validated_data['visible'] = 1;
+        } else {
+            $validated_data['visible'] = 0;
+        }
+
+        $validated_data['user_id'] = Auth::id();
+
+        $newApartment = Apartment::create($validated_data);
+
+        if ($request->has('services')){
+            $newApartment->services()->attach($request->services);
+        }
+
+        return to_route('admin.apartments.show', ['apartment' => $newApartment->id])
+            ->with('status', 'L\'appartamento è stato creato correttamente.');
     }
 
     /**

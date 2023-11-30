@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreApartmentRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class StoreApartmentRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::id();
     }
 
     /**
@@ -24,7 +25,19 @@ class StoreApartmentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'user_id' => 'exists:users,id',
+            'name' => 'required|string|max:255',
+            'rooms' => 'required|numeric|between:1,255',
+            'beds' => 'required|numeric|between:1,255',
+            'bathrooms' => 'required|numeric|between:1,255',
+            'square_meters' => 'required|numeric|between:1,65000',
+            'address' => 'required|string|max:255',
+            'lat' => 'required|decimal:0,8',
+            'lon' => 'required|decimal:0,8',
+            'photo' => 'required|image',
+            'visible' => 'nullable',
+            'services' => 'required|array',
+            'services.*' => 'exists:services,id'
         ];
     }
 }

@@ -26,6 +26,7 @@ class ApartmentFactory extends Factory
             'address' => fake()->address(),
             'lat' => fake()->latitude(),
             'lon' => fake()->longitude(),
+            'photo' => fake()->file('storage','apartments',true),
             'visible' => 1,
         ];
     }
