@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('address');
             $table->decimal('lat',11,8);
             $table->decimal('lon',11,8);
-            $table->string('photo',255)->nullable();
+            $table->string('photo',255);
             $table->boolean('visible')->default(0);
             $table->timestamps();
             $table->softDeletes();
