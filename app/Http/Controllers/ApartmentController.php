@@ -17,8 +17,8 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        $apartments = Apartment::where('user_id',Auth::id())->orderBy('name','asc')->get();
-        
+        $apartments = Apartment::where('user_id', Auth::id())->orderBy('name', 'asc')->get();
+
         return view('admin.apartments.index', compact('apartments'));
     }
 
@@ -28,14 +28,9 @@ class ApartmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {   
+    {
         $services = Service::all();
-        if (Auth::user()->apartment) {
-            return redirect()->route('admin.dashboard')->with('message', "Hai già un appartamento");
-        } else {
-            return view('admin.apartments.create', compact('services'));
-        }
-        
+        return view('admin.apartments.create', compact('services'));
     }
 
     /**
